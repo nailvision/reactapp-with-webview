@@ -2,18 +2,7 @@ import Iframe from "react-iframe";
 import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-
-const WebView = ({ url }) => {
-  return (
-    <iframe
-      src={url}
-      style={{ width: "100%", height: "100%", border: "none" }}
-      title="WebView"
-    />
-  );
-};
-
-// export default WebView;
+import WebView from "./WebView";
 
 function App() {
   return (
