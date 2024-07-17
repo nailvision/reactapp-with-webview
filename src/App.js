@@ -7,19 +7,17 @@ const URL = "http://localhost:3000/camera";
 
 const App = () => {
   const [image, setImage] = useState(null);
-  const handleWebViewMessage = (message_json) => {
-    // add image with useState
-
-    // un-stringify the message
-    const messageObj = JSON.parse(message_json);
-
-    setImage(messageObj.imageDataUrl);
-
+  const handleWebViewMessage = (message) => {
+    if (!message?.imageDataUrl) {
+      console.log("Received a message without imageDataUrl");
+      return;
+    }
+    setImage(message.imageDataUrl);
     console.log(
       "Received imageObj from WebView:",
-      messageObj.width,
-      messageObj.height,
-      messageObj.imageDataUrl.slice(0, 20)
+      message.width,
+      message.height,
+      message.imageDataUrl.slice(0, 20)
     );
   };
 
