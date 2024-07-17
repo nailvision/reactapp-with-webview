@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 const WebView = ({ url, onMessage }) => {
   useEffect(() => {
@@ -22,8 +22,8 @@ const WebView = ({ url, onMessage }) => {
       src={url}
       style={{ width: "100%", height: "100%", border: "none" }}
       title="WebView"
+      allow="camera; microphone; fullscreen"
     />
   );
 };
-
 export default WebView;

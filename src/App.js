@@ -1,18 +1,30 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import WebView from "./WebView";
 
-// const URL = "https://nailapp.theacare.de/nail-classifier";
+// const URL = "<THEACARE_URL>/camera";
 const URL = "http://localhost:3000/camera";
 
 const App = () => {
-  const handleWebViewMessage = (message) => {
-    console.log("Received message from WebView:", message);
+  const [image, setImage] = useState(null);
+  const handleWebViewMessage = (message_json) => {
+    // add image with useState
+
+    // un-stringify the message
+    const messageObj = JSON.parse(message_json);
+
+    setImage(messageObj.imageDataUrl);
+
+    console.log(
+      "Received imageObj from WebView:",
+      messageObj.width,
+      messageObj.height,
+      messageObj.imageDataUrl.slice(0, 20)
+    );
   };
 
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <WebView url={URL} onMessage={handleWebViewMessage} />
+    <div style={{ width: "100%", height: "50vh" }}>
       <a
         className="App-link"
         href="https://reactjs.org"
@@ -21,6 +33,14 @@ const App = () => {
       >
         Learn React
       </a>
+      {image && (
+        <img
+          src={image}
+          alt=""
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      )}
+      {!image && <WebView url={URL} onMessage={handleWebViewMessage} />}
     </div>
   );
 };
